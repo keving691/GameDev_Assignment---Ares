@@ -1,0 +1,39 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Enemy : MonoBehaviour
+{
+    public GameObject heroObj;
+    public bool enemyRight = false;
+    public bool enemyLeft = false;
+    public bool enemyDown = false;
+    public bool enemyUp = false;
+    public Animator enemyAnimator;
+    public float speed = 2.0f;
+    void Start()
+    {
+        speed = 1.0f;
+        InvokeRepeating("Accelerate", 2, 5);
+    }
+    void Update()
+    {
+        enemyMove();
+    }
+    public void enemyMove()
+    {
+        heroObj = GameObject.Find(hero);
+
+    }
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.name == "laser(Clone)")
+        {
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
+
+        }
+    }
+
+
+}
