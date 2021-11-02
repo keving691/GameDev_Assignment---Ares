@@ -1,0 +1,179 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+
+public class ControlCharacter_PartB : MonoBehaviour
+{
+    public Rigidbody2D enemy;
+    public bool right = false;
+    public bool left = false;
+    public bool up = false;
+    public bool down = false;
+    public float speed = 2.0f;
+
+    public Rigidbody2D orb;
+    public float orbSpeed = 20.0f;
+    public float orbSpeed2 = -20;
+
+
+
+    public Camera cam;
+    // public Object player;
+    public float S_height;
+    public float S_width;
+
+    // Use this for initialization
+    void Start()
+    {
+        cam = Camera.main;
+        Debug.Log("Width, height = " + Screen.width + ", " + Screen.height);
+        S_height = 2f * cam.orthographicSize;
+        S_width = S_height * cam.aspect;
+        Debug.Log("The widht " + S_width + " and height " + S_height + "");
+        InvokeRepeating("enemySpawn", 3, 3);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        Rigidbody2D orbInstance;
+        if (Input.GetButtonDown("Fire1"))
+        {
+            orbInstance = Instantiate(orb, transform.position, Quaternion.Euler(new Vector3(-1, 0, 0)));
+            if (right == true)
+                orbInstance.velocity = new Vector2(orbSpeed, 0);
+            if (left == true)
+                orbInstance.velocity = new Vector2(orbSpeed, 0);
+            if (up == true)
+                orbInstance.velocity = new Vector2(orbSpeed, 0);
+            if (down == true)
+                orbInstance.velocity = new Vector2(orbSpeed, 0);
+        }
+
+    }
+    private void Accelerate()
+    {
+        speed = speed + 1;
+
+
+    }
+    private void enemySpawn()
+    {
+        Rigidbody2D enemyInstance;
+        Vector3 position = new Vector3(Random.Range(-10.0f, 10.0f), 0, Random.Range(10.0f, 10.0f));
+        enemyInstance = Instantiate(enemy, new Vector3(Random.Range(2.0f, 8.0f), Random.Range(-4.0f, 4.0f), 0), Quaternion.Euler(new Vector3(0f, 0f, 0f)));
+    }
+    private void FixedUpdate()
+    {
+        MoveCharacter();
+    }
+    void MoveCharacter()
+    {
+        
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            
+            down = false;
+            left = false;
+            right = true;
+            up = false;
+            transform.Translate(Vector3.right * Time.deltaTime * speed);
+        }
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            
+            down = true;
+            left = false;
+            right = false;
+            up = false;
+            transform.Translate(Vector3.down * Time.deltaTime * speed);
+        }
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            
+            down = false;
+            left = true;
+            right = false;
+            up = false;
+            transform.Translate(Vector3.left * Time.deltaTime * speed);
+        }
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            
+            down = false;
+            left = false;
+            right = false;
+            up = true;
+            transform.Translate(Vector3.up * Time.deltaTime * speed);
+        }
+        if (right == true)
+            transform.Translate(Vector3.right * speed * Time.deltaTime);
+        if (left == true)
+            transform.Translate(Vector3.left * speed * Time.deltaTime);
+        if (up == true)
+            transform.Translate(Vector3.up * speed * Time.deltaTime);
+        if (down == true)
+            transform.Translate(Vector3.down * speed * Time.deltaTime);
+
+        
+        {
+          
+            down = false;
+            left = true;
+            right = false;
+            up = false;
+            transform.Translate(Vector3.left * Time.deltaTime * speed);
+
+        }
+        
+        {
+          
+            down = false;
+            left = false;
+            right = true;
+            up = false;
+            transform.Translate(Vector3.right * Time.deltaTime * speed);
+
+        }
+        
+        {
+            
+            down = false;
+            left = false;
+            right = false;
+            up = true;
+            transform.Translate(Vector3.up * Time.deltaTime * speed);
+
+        }
+       
+        {
+            
+            down = true;
+            left = false;
+            right = false;
+            up = false;
+            transform.Translate(Vector3.down * Time.deltaTime * speed);
+
+        }
+        
+    }
+    public void OnGUI()
+    {
+        GUI.Box(new Rect(10, 10, 100, 90), "" + Time.time);
+    }
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if ((collision.gameObject.name == "enemy(Clone")) (collision.gameObject.name == "right")
+        || (collision.gameObject.name == "left") || (collision.gameObject.name == "bottom") || (collision.gameObject.name == "top"));
+    
+    }
+    Time.timeScale = 0;
+    Destroy(gameObject);
+
+   
+    }
+
+    
+}
+
