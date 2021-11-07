@@ -1,0 +1,26 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Prompts : MonoBehaviour
+{
+    public GameObject Panel;
+    void Start()
+    {
+        Panel.SetActive(false);
+        Time.timeScale = 1f;
+    }
+
+    // Update is called once per frame
+    public void OnTriggerEnter2D(Collider2D collision )
+    {
+    // This is name of whatever the character is in your game
+    
+        if(collision.tag = player)
+        {
+
+            Panel.SetActive(true);
+            Time.timeScale = 0f;
+        }
+    }
+}
